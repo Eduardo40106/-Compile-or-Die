@@ -1,4 +1,6 @@
 // prueba de acceso a editar GT-8
+// podriamos hacer que esta sea la funcion main
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
