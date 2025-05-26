@@ -14,5 +14,5 @@ struct adoptante{
 struct mascota{
 
     char especie[50];
-
+    char nombreMasctoa[100];
 };
