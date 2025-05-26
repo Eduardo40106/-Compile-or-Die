@@ -1,0 +1,51 @@
+🧩 Plan de trabajo: "Divide y Vencerás" para 5 programadores + 1 documentador
+
+👤1 Ing. Garcia - Estructuras y carga de archivos (BASE DEL SISTEMA)
+Define las estructuras necesarias (adoptante, mascota, adopción).
+
+Implementa la lectura de archivos para:
+
+Adoptantes → agregar a la cola.
+
+Mascotas → agregar a la lista.
+
+👤2 Ing. Romero - Registro de adoptantes (MENÚ A)
+Implementa el registro del adoptante.
+
+Genera el ID con el formato especial.
+
+Agrega el adoptante a la cola.
+
+Verifica contraseñas y controla el ingreso correcto.
+
+👤3 Ing. Barrancos - Atención de adoptante (MENÚ B)
+Verifica contraseña.
+
+Muestra menú del adoptante.
+
+Controla el flujo entre opciones 1 a 5 (sin implementar aún el contenido de cada una).
+
+👤4 Ing. Cuevas - Visualización y adopción de mascotas (Opciones 1 a 3 del menú del adoptante)
+Mostrar mascotas de todas las especies (navegación S, A, M, Q).
+
+Mostrar mascotas por especie.
+
+Buscar mascota por nombre.
+
+Eliminar mascota adoptada de la lista.
+
+👤5 Ing. Panikova - Búsqueda recursiva y administración (Opciones 4 y D)
+Buscar mascotas por especie y edad usando recursividad.
+
+Implementar el inicio de sesión de administrador.
+
+Registro de nuevas mascotas por parte del administrador.
+
+📝6 Ing. Sanchez - Documentación
+Documenta el propósito de cada archivo, función y estructura.
+
+Explica cómo compilar y ejecutar.
+
+Crea un manual de usuario.
+
+Resume las decisiones tomadas y cómo se organizó el trabajo.
