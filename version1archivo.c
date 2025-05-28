@@ -414,6 +414,3 @@ int main() {
     menuPrincipal(&laCola);
     return 0;
 }
-
-
-}
