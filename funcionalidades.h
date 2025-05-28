@@ -1,0 +1,40 @@
+// Aqui van las declaraciones de las estructuras y los prototipos de las funciones
+#ifndef MISFUNCIONES_H
+#define MISFUNCIONES_H
+
+struct Adoptante {
+    char nombre[50];
+    char apellidoP[50];
+    char apellidoM[50];
+    char direccion[100];
+    char correo[50];
+    char telefono[15];
+    char contrasena[20];
+    char id[30]; 
+};
+
+struct Nodo {
+    struct Adoptante* persona;
+    struct Nodo* Aptsiguiente;
+};
+
+struct Cola {
+    struct Nodo* Aptfrente;
+    struct Nodo* Aptatras;
+};
+
+void inicializarCola(struct Cola* laCola);
+void encolar(struct Cola* laCola, struct Adoptante* nuevo);
+void generarID(struct Adoptante* a, int consecutivo);
+void registroAdoptante(struct Cola* laCola, int* consecutivoGlobal);
+void menuPrincipal(struct Cola* laCola);
+void mostrarMenuB();
+void controlarFlujoMenuB(struct Cola* laCola);
+void iniciarSesion(struct Cola *laCola);
+void mostrarID(struct Cola* laCola);
+int verificarCredenciales(struct Cola *laCola, const char *contrasenaIngresada);
+
+
+
+
+#endif
