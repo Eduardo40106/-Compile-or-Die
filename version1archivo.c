@@ -25,7 +25,11 @@ struct Nodo {
     struct Adoptante* persona;
     struct Nodo* Aptsiguiente;
 };
-
+//Estructura que representa una mascota 
+struct Mascota {
+ char nombre [50];
+ char especie [30];
+struct Mascota * Aptsiguiente;
 // Cola de adoptantes
 struct Cola {
     struct Nodo* Aptfrente;
