@@ -117,7 +117,7 @@ void leerAdoptantesDesdeArchivo(struct Cola* laCola, int* consecutivoGlobal) {
     while (!feof(archivo)) {
         nuevo = (struct Adoptante*)malloc(sizeof(struct Adoptante));
 
-        if (fscanf(archivo, "%49[^|]|%49[^|]|%49[^|]|%99[^|]|%49[^|]|%14[^|]|%19[^|]|%29[^\n]\n",
+        if (fscanf(archivo, "%s\n|%s\n|%s\n%s\n%s\n|%s\n%s\n%s\n\n",
                    nuevo->nombre, nuevo->apellidoP, nuevo->apellidoM, nuevo->direccion,
                    nuevo->correo, nuevo->telefono, nuevo->contrasena, nuevo->id) == 8) {
 
@@ -142,7 +142,7 @@ void leerMascotasDesdeArchivo() {
 
     while (!feof(archivo)) {
         struct Mascota* nueva = (struct Mascota*)malloc(sizeof(struct Mascota));
-        if (fscanf(archivo, "%49[^|]|%29[^|]|%d\n", nueva->nombre, nueva->especie, &nueva->edad) == 3) {
+        if (fscanf(archivo, "%s49[^|]|%s29[^|]|%d\n", nueva->nombre, nueva->especie, &nueva->edad) == 3) {
             nueva->Aptsiguiente = NULL;
             agregarMascotaLista(&listaMascotas, nueva);
         } else {
@@ -217,16 +217,21 @@ void registroAdoptante(struct Cola* laCola, int* consecutivoGlobal) {
     char continuar[20];
     fgets(continuar, sizeof(continuar), stdin);
     continuar[strcspn(continuar, "\n")] = 0;
-
+    FILE* archivo = fopen("adoptantes.txt", "w+");
     if (strcmp(continuar, "CONTINUAR") == 0) {
         encolar(laCola, Aptnuevo);
         printf("\033[H\033[J");  
-        printf("Adoptante agregado correctamente.\n");      
+        printf("Adoptante agregado correctamente.\n");
+        fprintf(archivo,
+            "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n\n",
+                   Aptnuevo->nombre, Aptnuevo->apellidoP, Aptnuevo->apellidoM, Aptnuevo->direccion,
+                   Aptnuevo->correo, Aptnuevo->telefono, Aptnuevo->contrasena, Aptnuevo->id);
     } else {
         free(Aptnuevo);
         printf("\033[H\033[J");  
         printf("Registro cancelado.\n");
     }
+    fclose(archivo);
 }
 
 // Muestra el menu principal
