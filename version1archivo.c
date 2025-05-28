@@ -55,6 +55,11 @@ void encolar(struct Cola* laCola, struct Adoptante* nuevo) {
         laCola->Aptatras = AptnodoNuevo;
     }//hola
 }
+// Lista de mascotas
+struct Mascota* listaMascotas = NULL;
+void leerAdoptantesDesdeArchivo(struct Cola* laCola, int* consecutivoGlobal);
+void leerMascotasDesdeArchivo();
+void agregarMascotaLista(struct Mascota** lista, struct Mascota* nueva);
 
 // Genera el ID basado en la fecha y letras del nombre
 void generarID(struct Adoptante* a, int consecutivo) {
@@ -95,7 +100,66 @@ void generarID(struct Adoptante* a, int consecutivo) {
     // Usamos sprintf para forma una cadena de texto con formato y almacenarla dentro de id.
     strcpy(a->id, id); // Copia el ID generado a la estructura
 }
+//Lectura del adoptantes 
+void leerAdoptantesDesdeArchivo(struct Cola* laCola, int* consecutivoGlobal) {
+    FILE* archivo = fopen("adoptantes.txt", "r");
+    if (!archivo) {
+        printf("No se pudo abrir el archivo de adoptantes.\n");
+        return;
+    }
 
+    struct Adoptante* nuevo;
+    while (!feof(archivo)) {
+        nuevo = (struct Adoptante*)malloc(sizeof(struct Adoptante));
+
+        if (fscanf(archivo, "%49[^|]|%49[^|]|%49[^|]|%99[^|]|%49[^|]|%14[^|]|%19[^|]|%29[^\n]\n",
+                   nuevo->nombre, nuevo->apellidoP, nuevo->apellidoM, nuevo->direccion,
+                   nuevo->correo, nuevo->telefono, nuevo->contrasena, nuevo->id) == 8) {
+
+            encolar(laCola, nuevo);
+            (*consecutivoGlobal)++;
+        } else {
+            free(nuevo);
+            break;
+        }
+    }
+
+    fclose(archivo);
+}
+// Lectura del apotante 
+void leerMascotasDesdeArchivo() {
+    FILE* archivo = fopen("mascotas.txt", "r");
+    if (!archivo) {
+        printf("No se pudo abrir el archivo de mascotas.\n");
+        return;
+    }
+
+    struct Mascota* nueva;
+
+    while (!feof(archivo)) {
+        nueva = (struct Mascota*)malloc(sizeof(struct Mascota));
+        if (fscanf(archivo, "%49[^|]|%29[^|]|%d\n", nueva->nombre, nueva->especie, &nueva->edad) == 3) {
+            nueva->siguiente = NULL;
+            agregarMascotaLista(&listaMascotas, nueva);
+        } else {
+            free(nueva);
+            break;
+        }
+    }
+
+    fclose(archivo);
+}
+void agregarMascotaLista(struct Mascota** lista, struct Mascota* nueva) {
+    if (*lista == NULL) {
+        *lista = nueva;
+    } else {
+        struct Mascota* actual = *lista;
+        while (actual->siguiente != NULL) {
+            actual = actual->siguiente;
+        }
+        actual->siguiente = nueva;
+    }
+}
 // Realiza el registro del adoptante
 void registroAdoptante(struct Cola* laCola, int* consecutivoGlobal) {
     struct Adoptante* Aptnuevo = (struct Adoptante*)malloc(sizeof(struct Adoptante));
