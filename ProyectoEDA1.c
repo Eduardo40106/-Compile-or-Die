@@ -16,8 +16,8 @@ struct Mascota {
 
 struct Adoptante {
     char nombre[50];
-    char apellido_paterno[50];
-    char apellido_materno[50];
+    char apellidoP[50];
+    char apellidoM[50];
     char direccion[100];
     char correo[50];
     char telefono[15];
@@ -58,7 +58,6 @@ void encolar(struct Cola* cola, struct Adoptante* nuevo) {
     struct Nodo* nodo_nuevo = (struct Nodo*)malloc(sizeof(struct Nodo));
     nodo_nuevo->adoptante = nuevo;
     nodo_nuevo->siguiente = NULL;
-    
     if (cola->frente == NULL) {
         cola->frente = nodo_nuevo;
         cola->atras = nodo_nuevo;
@@ -77,13 +76,11 @@ void generar_id(struct Adoptante* adoptante, int consecutivo) {
             fecha->tm_year % 100,
             fecha->tm_mon + 1,
             fecha->tm_mday);
-    
     char inicial_nombre = adoptante->nombre[0];
-    char ultima_apellido_p = strlen(adoptante->apellido_paterno) > 0 ? 
-        adoptante->apellido_paterno[strlen(adoptante->apellido_paterno) - 1] : 'X';
-    char tercera_apellido_m = strlen(adoptante->apellido_materno) > 2 ? 
-        adoptante->apellido_materno[2] : 'X';
-    
+    char ultima_apellido_p = strlen(adoptante->apellidoP) > 0 ?
+        adoptante->apellidoP[strlen(adoptante->apellidoP) - 1] : 'X';
+    char tercera_apellido_m = strlen(adoptante->apellidoM) > 2 ?
+        adoptante->apellidoM[2] : 'X';
     char id[30];
     sprintf(id, "%s%02d%c%c%c",
             fecha_str, consecutivo,
@@ -108,7 +105,6 @@ int validar_contrasena(struct SistemaAdopcion* sistema, char* id, char* contrase
 void mostrar_mascotas_por_especie(struct Mascota* mascotas, char* especie) {
     struct Mascota* actual = mascotas;
     int encontrado = 0;
-    
     while (actual != NULL) {
         if (strcmp(actual->especie, especie) == 0) {
             printf("\n=== Datos de la Mascota ===\n");
@@ -122,7 +118,6 @@ void mostrar_mascotas_por_especie(struct Mascota* mascotas, char* especie) {
         }
         actual = actual->siguiente;
     }
-    
     if (!encontrado) {
         printf("\nNo se encontraron mascotas de la especie seleccionada.\n");
     }
@@ -131,7 +126,6 @@ void mostrar_mascotas_por_especie(struct Mascota* mascotas, char* especie) {
 // Función para buscar mascotas por especie y edad
 void buscar_mascotas_especie_edad(struct Mascota* mascotas, char* especie, int edad_min, int edad_max) {
     if (mascotas == NULL) return;
-    
     if (strcmp(mascotas->especie, especie) == 0 &&
         mascotas->edad_aproximada >= edad_min &&
         mascotas->edad_aproximada <= edad_max) {
@@ -140,7 +134,6 @@ void buscar_mascotas_especie_edad(struct Mascota* mascotas, char* especie, int e
         printf("Edad: %d años\n", mascotas->edad_aproximada);
         printf("Descripción: %s\n", mascotas->descripcion);
     }
-    
     buscar_mascotas_especie_edad(mascotas->siguiente, especie, edad_min, edad_max);
 }
 
@@ -149,17 +142,14 @@ void procesar_adopcion(struct SistemaAdopcion* sistema, struct Mascota* mascota)
     char confirmacion[20];
     printf("\n¿Desea adoptar a %s? (CONFIRMAR/CANCELAR): ", mascota->nombre);
     scanf("%19s", confirmacion);
-    
     if (strcmp(confirmacion, "CONFIRMAR") == 0) {
         printf("\n¡Felicitaciones! Ha adoptado a %s.\n", mascota->nombre);
         printf("Por favor, diríjase al área de mascotas bajo resguardo.\n");
-        
         struct Nodo* actual = sistema->fila_virtual->frente;
         if (actual != NULL) {
             sistema->fila_virtual->frente = actual->siguiente;
             free(actual);
         }
-        
         time_t inicio = time(NULL);
         while (time(NULL) - inicio < 3);
     } else {
@@ -172,7 +162,6 @@ void mostrar_menu_adoptante(struct SistemaAdopcion* sistema) {
     char opcion;
     char especie[50];
     int edad_min, edad_max;
-    
     while (1) {
         printf("\n=== MENÚ DE ADOPTANTE ===\n");
         printf("1. Mostrar mascotas de todas las especies\n");
@@ -182,7 +171,6 @@ void mostrar_menu_adoptante(struct SistemaAdopcion* sistema) {
         printf("5. Salir\n");
         printf("Seleccione una opción: ");
         scanf(" %c", &opcion);
-        
         switch(opcion) {
             case '1':
                 mostrar_mascotas_por_especie(sistema->mascotas, "");
@@ -215,61 +203,55 @@ void mostrar_menu_adoptante(struct SistemaAdopcion* sistema) {
 void registrar_adoptante(struct Cola* cola, int* consecutivo_global) {
     struct Adoptante* nuevo = (struct Adoptante*)malloc(sizeof(struct Adoptante));
     printf("Registro de adoptante.\nIngrese los datos necesarios para su registro por favor\n");
-    
     printf("Nombre: ");
     fgets(nuevo->nombre, 50, stdin);
     nuevo->nombre[strcspn(nuevo->nombre, "\n")] = 0;
-    
     printf("Apellido paterno: ");
-    fgets(nuevo->apellido_paterno, 50, stdin);
-    nuevo->apellido_paterno[strcspn(nuevo->apellido_paterno, "\n")] = 0;
-    
+    fgets(nuevo->apellidoP, 50, stdin);
+    nuevo->apellidoP[strcspn(nuevo->apellidoP, "\n")] = 0;
     printf("Apellido materno: ");
-    fgets(nuevo->apellido_materno, 50, stdin);
-    nuevo->apellido_materno[strcspn(nuevo->apellido_materno, "\n")] = 0;
-    
+    fgets(nuevo->apellidoM, 50, stdin);
+    nuevo->apellidoM[strcspn(nuevo->apellidoM, "\n")] = 0;
     printf("Direccion: ");
     fgets(nuevo->direccion, 100, stdin);
     nuevo->direccion[strcspn(nuevo->direccion, "\n")] = 0;
-    
     printf("Correo electronico: ");
     fgets(nuevo->correo, 50, stdin);
     nuevo->correo[strcspn(nuevo->correo, "\n")] = 0;
-    
     printf("Telefono: ");
     fgets(nuevo->telefono, 15, stdin);
     nuevo->telefono[strcspn(nuevo->telefono, "\n")] = 0;
-    
     printf("Contrasena: ");
     fgets(nuevo->contrasena, 20, stdin);
     nuevo->contrasena[strcspn(nuevo->contrasena, "\n")] = 0;
-    
     char confirmar[5];
     do {
         printf("\nLos datos son correctos? (SI/NO): ");
         fgets(confirmar, sizeof(confirmar), stdin);
         confirmar[strcspn(confirmar, "\n")] = 0;
     } while (strcmp(confirmar, "SI") != 0);
-    
     generar_id(nuevo, *consecutivo_global);
     (*consecutivo_global)++;
-    
     printf("Su ID es: \033[1;33m%s\033[0m\nNecesitara su ID y su contrasena para iniciar sesion en el sistema\n", nuevo->id);
-    
     char continuar[20];
     printf("Escriba CONTINUAR para finalizar el registro: ");
     fgets(continuar, sizeof(continuar), stdin);
     continuar[strcspn(continuar, "\n")] = 0;
-    
+    FILE* archivo = fopen("adoptantes.txt", "w+");
     if (strcmp(continuar, "CONTINUAR") == 0) {
         encolar(cola, nuevo);
         printf("\033[H\033[J");
         printf("Adoptante agregado correctamente.\n");
+         fprintf(archivo,
+            "%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n\n",
+                   nuevo->nombre, nuevo->apellidoP, nuevo->apellidoM, nuevo->direccion,
+                   nuevo->correo, nuevo->telefono, nuevo->contrasena, nuevo->id);
     } else {
         free(nuevo);
         printf("\033[H\033[J");
         printf("Registro cancelado.\n");
     }
+    fclose(archivo);
 }
 
 // Función para mostrar el ID del adoptante actual
@@ -301,18 +283,15 @@ void iniciar_sesion(struct Cola* cola) {
         printf("No hay adoptantes por atender.\n");
         return;
     }
-    
     char contrasena[30];
     int intentos = 3;
     printf("Atencion de adoptante.\t");
     mostrar_id(cola);
     printf("\n");
-    
     do {
         printf("Si falla 3 veces sera retirado de la fila de adoptantes y debera registrarse de nuevo.\n\nIngrese su contrasena: ");
         fgets(contrasena, sizeof(contrasena), stdin);
         contrasena[strcspn(contrasena, "\n")] = '\0';
-        
         if (verificar_credenciales(cola, contrasena) == 1) {
             printf("\033[H\033[J");
             printf("Bienvenido/a al sistema.\n");
@@ -323,7 +302,6 @@ void iniciar_sesion(struct Cola* cola) {
             intentos--;
         }
     } while (intentos > 0);
-    
     if (intentos == 0) {
         printf("\033[H\033[J");
         printf("Ha fallado 3 veces, usted fue retirado de la fila de adoptantes y debera registrarse de nuevo.\n");
@@ -343,7 +321,6 @@ void iniciar_sesion(struct Cola* cola) {
 void mostrar_menu_principal(struct Cola* cola) {
     int consecutivo_global = 1;
     char opcion;
-    
     do {
         printf("\n----- MENU PRINCIPAL -----\n");
         printf("A. Registro de adoptante\n");
@@ -354,7 +331,6 @@ void mostrar_menu_principal(struct Cola* cola) {
         char input[3];
         fgets(input, sizeof(input), stdin);
         opcion = input[0];
-        
         switch (opcion) {
             case 'A':
                 printf("\033[H\033[J");
