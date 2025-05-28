@@ -400,14 +400,20 @@ void controlarFlujoMenuB(struct Cola* laCola) {
 
 
 
+int main() {
+    printf("\033[H\033[J");
 
-
-int main(){
-	printf("\033[H\033[J");	
     struct Cola laCola;
     inicializarCola(&laCola);
+
+    int consecutivoGlobal = 1;
+
+    leerAdoptantesDesdeArchivo(&laCola, &consecutivoGlobal);
+    leerMascotasDesdeArchivo();
+
     menuPrincipal(&laCola);
+    return 0;
+}
 
 
-	return 0;
 }
