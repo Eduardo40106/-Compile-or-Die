@@ -49,7 +49,7 @@ void encolar(struct Cola* laCola, struct Adoptante* nuevo) {
     } else {
         laCola->Aptatras->Aptsiguiente = AptnodoNuevo;
         laCola->Aptatras = AptnodoNuevo;
-    }
+    }//hola
 }
 
 // Genera el ID basado en la fecha y letras del nombre
