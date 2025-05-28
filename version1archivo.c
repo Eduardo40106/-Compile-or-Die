@@ -27,9 +27,14 @@ struct Nodo {
 };
 //Estructura que representa una mascota 
 struct Mascota {
- char nombre [50];
- char especie [30];
+    char especie[50];
+    char nombre[50];
+    int edad;
+    char tamano[20];
+    float peso;
+    char descripcion[200];
 struct Mascota * Aptsiguiente;
+};
 // Cola de adoptantes
 struct Cola {
     struct Nodo* Aptfrente;
@@ -134,12 +139,11 @@ void leerMascotasDesdeArchivo() {
         return;
     }
 
-    struct Mascota* nueva;
 
     while (!feof(archivo)) {
-        nueva = (struct Mascota*)malloc(sizeof(struct Mascota));
+        struct Mascota* nueva = (struct Mascota*)malloc(sizeof(struct Mascota));
         if (fscanf(archivo, "%49[^|]|%29[^|]|%d\n", nueva->nombre, nueva->especie, &nueva->edad) == 3) {
-            nueva->siguiente = NULL;
+            nueva->Aptsiguiente = NULL;
             agregarMascotaLista(&listaMascotas, nueva);
         } else {
             free(nueva);
@@ -154,10 +158,10 @@ void agregarMascotaLista(struct Mascota** lista, struct Mascota* nueva) {
         *lista = nueva;
     } else {
         struct Mascota* actual = *lista;
-        while (actual->siguiente != NULL) {
-            actual = actual->siguiente;
+        while (actual->Aptsiguiente != NULL) {
+            actual = actual->Aptsiguiente;
         }
-        actual->siguiente = nueva;
+        actual->Aptsiguiente = nueva;
     }
 }
 // Realiza el registro del adoptante
