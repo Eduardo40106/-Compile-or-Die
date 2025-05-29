@@ -32,6 +32,7 @@ void inicializarCola(struct Cola* laCola);
 void encolar(struct Cola* laCola, struct Adoptante* nuevo);
 void generarID(struct Adoptante* a, int consecutivo);
 void registroAdoptante(struct Cola* laCola, int* consecutivoGlobal);
+void registrarMascota(struct ListaMascotas* mascotas);
 void menuPrincipal(struct Cola* laCola);
 void mostrarMenuB();
 void controlarFlujoMenuB(struct Cola* laCola);
