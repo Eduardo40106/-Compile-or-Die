@@ -19,6 +19,15 @@ struct Adoptante {
 };
 
 struct Mascota {
+	char descripcion[202];
+	char especie[52];
+	char nombre[52];
+	char tamano[22];
+	int edad;
+	float peso;
+	char adoptada;
+	struct Mascota* siguiente;
+
 };
 
 struct Nodo {
@@ -26,7 +35,8 @@ struct Nodo {
     struct Nodo* Aptsiguiente;
 };
 
-struct ListaMascota {
+struct ListaMascotas {
+    struct Mascota* inicio;
 }
 
 struct Cola {
