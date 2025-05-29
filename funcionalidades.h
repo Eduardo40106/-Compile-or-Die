@@ -57,7 +57,9 @@ void iniciarSesion(struct Cola *laCola);
 void mostrarID(struct Cola* laCola);
 int verificarCredenciales(struct Cola *laCola, const char *contrasenaIngresada);
 void mostrar_mascotas_por_especie(struct Mascota* mascotas, char* especie);
-
+void procesar_adopcion(struct Cola* laCola, struct Mascota* mascota);
+void leer_archivo(const char *nombre_archivo);
+void agregarMascotaArchivo(struct Mascota *mascota);
 
 
 #endif
