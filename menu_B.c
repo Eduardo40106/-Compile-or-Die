@@ -4,6 +4,8 @@
 #include <time.h>
 #include "funcionalidades.h"
 
+
+
 int verificarCredenciales(struct Cola *laCola, const char *contrasenaIngresada) {
     if (laCola->Aptfrente == NULL) {
         printf("No hay adoptantes por atender\n");
@@ -76,6 +78,7 @@ void controlarFlujoMenuB(struct Cola* laCola) {
     int opcion;
     char decision[10];
 
+
     while (1) {
         mostrarMenuB();
         printf("Elige una opcion: ");
@@ -88,7 +91,12 @@ void controlarFlujoMenuB(struct Cola* laCola) {
                 printf("Opcion 1 seleccionada (no implementada).\n");
                 break;
             case 2:
-                printf("Opcion 2 seleccionada (no implementada).\n");
+                printf("\033[H\033[J");
+                char especie[50];
+                printf("Que especie desea buscar?\n");
+                fgets(especie, sizeof(especie), stdin);
+                especie[strcspn(especie, "\n")] = '\0';
+                mostrar_mascotas_por_especie(mascotas,especie);
                 break;
             case 3:
                 printf("Opcion 3 seleccionada (no implementada).\n");
