@@ -33,7 +33,7 @@ void controlarFlujoMenuB(struct Cola* laCola);
 void iniciarSesion(struct Cola *laCola);
 void mostrarID(struct Cola* laCola);
 int verificarCredenciales(struct Cola *laCola, const char *contrasenaIngresada);
-
+void mostrar_mascotas_por_especie(struct Mascota* mascotas, char* especie);
 
 
 
