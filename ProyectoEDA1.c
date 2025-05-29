@@ -209,7 +209,7 @@ void procesarAdopcion(struct SistemaAdopcion* sistema, struct Mascota* mascota) 
 // Función para mostrar el menú de adoptante
 void menuAdoptante(struct SistemaAdopcion* sistema) {
 	char opcion = 0;
-	char especie[50];
+	char especie[50], nombre[50];
 	int edad_min, edad_max;
 
 	while(opcion != '5') {
@@ -233,6 +233,11 @@ void menuAdoptante(struct SistemaAdopcion* sistema) {
 				mostrarMascotasEspecie(sistema->mascotas, especie, 1);
 				break;
 			case '3':
+				printf("Ingrese nombre de mascota: ");
+				scanf("%49s", nombre); getchar();
+
+				procesarAdopcion(sistema,
+					buscarMascotaNombre(sistema->mascotas, nombre));
 				break;
 			case '4':
 				printf("Ingrese la especie: ");
