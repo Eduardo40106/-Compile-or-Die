@@ -46,12 +46,6 @@ struct SistemaAdopcion {
 	struct FilaAdoptantes* filaVirtual;
 };
 
-
-// Funciones declaradas
-//void menuAdoptante(struct SistemaAdopcion* sistema);
-//void iniciarSesion(struct SistemaAdopcion* sistema);
-//void mostrarID(struct FilaAdoptantes* cola);
-
 // Función para encolar un nuevo adoptante
 void encolar(struct FilaAdoptantes* cola, struct Adoptante* nuevo) {
 	nuevo->siguiente = NULL;
@@ -114,6 +108,39 @@ void mostrarMascotasEspecie(struct ListaMascotas* mascotas, char* especie, char 
 
 	if(!encontrado)
 		printf("\nNo se encontraron mascotas de la especie seleccionada.\n");
+}
+
+struct Mascota* buscarMascotasNombre(struct Mascota* mascotas, char* nombre) {
+	struct Mascota* actual = mascotas->inicio;
+	int encontrado = 0, opcion = 0;
+
+	while(actual != NULL) {
+		if(!strcmp(actual->nombre, nombre)) {
+			printf("\n=== Datos de la Mascota ===\n");
+			printf("Especie: %s\n", actual->especie);
+			printf("Nombre: %s\n", actual->nombre);
+			printf("Edad: %d años\n", actual->edad);
+			printf("Tamaño: %s\n", actual->tamano);
+			printf("Peso: %.2f kg\n", actual->peso);
+			printf("Descripción: %s\n", actual->descripcion);
+			encontrado = 1;
+
+			printf("Ingrese \"M\" para ADOPTAR, \"Q\" para SALIR, cualquier letra para continuar: ");
+			scanf("%c", &opcion); getchar();
+		}
+		
+		actual = actual->siguiente;
+	}
+
+	if(!encontrado)
+		printf("\nNo se encontraron mascotas de la especie seleccionada.\n");
+
+	switch(opcion) {
+		case 'M':
+			return mascotas;
+		default:
+			return NULL;
+	}
 }
 
 // Función para buscar mascotas por especie y edad
