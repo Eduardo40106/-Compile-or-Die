@@ -4,9 +4,11 @@
 #include <time.h>
 #include "funcionalidades.h"
 
+
+struct Mascota* mascotas = NULL;
 void mostrar_mascotas_por_especie(struct Mascota* mascotas, char* especie) {
     struct Mascota* actual = mascotas;
-    char eleccion;struct SistemaAdopcion* sistema;
+    char eleccion;struct Cola* laCola;
     const char *nombre_archivo;
     FILE *archivo = fopen("Mascota.txt", "r");
     
@@ -42,16 +44,16 @@ void mostrar_mascotas_por_especie(struct Mascota* mascotas, char* especie) {
                 switch (eleccion)
                 {
                 case 'A':
-                    leer_archivo(&nombre_archivo);
+                    leer_archivo(nombre_archivo);
                     break;
                 case 'S':
-                    leer_archivo(&nombre_archivo);
+                    leer_archivo(nombre_archivo);
                 break;
                 case 'M':
-                    procesar_adopcion(&sistema, &mascotas);
+                    procesar_adopcion(laCola, mascotas);
                 break;
                 case 'Q':
-                    mostrar_menu_adoptante(sistema);
+                    controlarFlujoMenuB(laCola);
                 break;
 
                 default:
@@ -65,5 +67,42 @@ void mostrar_mascotas_por_especie(struct Mascota* mascotas, char* especie) {
         printf("\nNo se encontraron mascotas de la especie seleccionada.\n");
     }
 
+    fclose(archivo);
+}
+
+void procesar_adopcion(struct Cola* laCola, struct Mascota* mascota) {
+    char confirmacion[20];
+    printf("\n¿Desea adoptar a %s? (CONFIRMAR/CANCELAR): ", mascota->nombre);
+    scanf("%19s", confirmacion);
+    if (strcmp(confirmacion, "CONFIRMAR") == 0) {
+        printf("\n¡Felicitaciones! Ha adoptado a %s.\n", mascota->nombre);
+        printf("Por favor, diríjase al área de mascotas bajo resguardo.\n");
+        struct Nodo* actual = laCola->Aptfrente;
+        if (actual != NULL) {
+            laCola->Aptfrente = actual->Aptsiguiente;
+            free(actual);
+        }
+        time_t inicio = time(NULL);
+        while (time(NULL) - inicio < 3);
+    } else {
+        printf("\nPuede seguir revisando la lista de mascotas.\n");
+    }
+}
+
+void leer_archivo(const char *nombre_archivo) {
+    FILE *archivo;
+    char buffer[1024];
+    
+    archivo = fopen(nombre_archivo, "r");
+    if (archivo == NULL) {
+        printf("Error al abrir el archivo: %s\n", nombre_archivo);
+        return;
+    }
+    
+    printf("\nContenido de %s:\n", nombre_archivo);
+    while (fgets(buffer, sizeof(buffer), archivo) != NULL) {
+        printf("%s", buffer);
+    }
+    
     fclose(archivo);
 }
