@@ -2,6 +2,11 @@
 #ifndef MISFUNCIONES_H
 #define MISFUNCIONES_H
 
+#ifdef _WIN32
+    #define PREFIJO "C:\\Temp\\edagpo15sem252\\"
+#elif __unix__
+    #define PREFIJO "/tmp/edagpo15sem252/"
+
 struct Adoptante {
     char nombre[50];
     char apellidoP[50];
