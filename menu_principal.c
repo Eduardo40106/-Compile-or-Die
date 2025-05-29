@@ -13,7 +13,7 @@ void menuPrincipal(struct Cola* laCola) {
         printf("A. Registro de adoptante.\n");
         printf("B. Atender a un adoptante.\n");
         printf("C. Cerrar el sistema\n");
-        printf("D. Registro de mascotas")
+        printf("D. Registro de mascotas");
         mostrarID(laCola);
         printf("\nSeleccione una opcion: ");
 
