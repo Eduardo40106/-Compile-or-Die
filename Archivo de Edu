@@ -120,12 +120,15 @@ void eliminarSaltoLinea(char *str) {
 // Función principal para navegar en el archivo
 void navegarArchivo(const char* nombreArchivo) {
     FILE *archivo;
+    struct Cola* laCola;
+    struct Mascota* mascota;
     char caracter;
     char linea[1000];
     
     // Abrir el archivo en modo lectura
     archivo = fopen(nombreArchivo, "r");
     if (!archivo) {
+        printf("No hay ningun animal disponible\n");
         printf("Error al abrir el archivo\n");
         return;
     }
@@ -188,9 +191,13 @@ void navegarArchivo(const char* nombreArchivo) {
                     }
                 }
                 break;
-                
+            case 'M':
+                procesar_adopcion(laCola,mascota);
+            break;
+
             case 'Q':
                 goto fin;
+
                 break;
                 
             default:
@@ -302,7 +309,7 @@ void compararContenidoArchivo(const char* nombreArchivo, const char* especie) {
             printf("Coincidencia encontrada en la línea %d:\n%s\n", 
                    lineaActual, linea);
                 printf("\n=== Datos de la Mascota ===\n");
-                navegarArchivo("Juan.txt");
+                navegarArchivo("Mascotas.txt");
 
             coincidencias++;
         }
@@ -361,7 +368,7 @@ void mostrar_menu_adoptante(struct SistemaAdopcion* sistema) {
                 scanf("%d", &edad_min);
                 printf("Ingrese edad máxima: ");
                 scanf("%d", &edad_max);
-                buscar_mascotas_especie_edad(sistema->mascotas, especie, edad_min, edad_max);
+                buscar_mascotas_especie_edad(mascotas, especie, edad_min, edad_max);
                 break;
             case '5':
                 return;
