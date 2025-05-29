@@ -5,8 +5,12 @@
 #include "funcionalidades.h"
 
 void registrarMascota(struct ListaMascotas* mascotas) {
-  
-	FILE* adminFile = fopen("admin.txt", "r");
+
+	char archivo[50] = "admin.txt";
+
+	strcat(archivo, PREFIJO);
+	
+	FILE* adminFile = fopen(archivo, "r");
 
 	if(adminFile != NULL) {
 		char adminNick[26] = {"\0"}, nick[26] = {"\0"}, adminContr[26] = {"\0"}, contr[26] = {"\0"};
