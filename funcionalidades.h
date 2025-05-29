@@ -18,10 +18,16 @@ struct Adoptante {
     char id[30]; 
 };
 
+struct Mascota {
+};
+
 struct Nodo {
     struct Adoptante* persona;
     struct Nodo* Aptsiguiente;
 };
+
+struct ListaMascota {
+}
 
 struct Cola {
     struct Nodo* Aptfrente;
@@ -33,6 +39,7 @@ void encolar(struct Cola* laCola, struct Adoptante* nuevo);
 void generarID(struct Adoptante* a, int consecutivo);
 void registroAdoptante(struct Cola* laCola, int* consecutivoGlobal);
 void registrarMascota(struct ListaMascotas* mascotas);
+void buscarMascotasEspecie(struct Mascota* mascotas, char* especie, int edad_min, int edad_max) {
 void menuPrincipal(struct Cola* laCola);
 void mostrarMenuB();
 void controlarFlujoMenuB(struct Cola* laCola);
