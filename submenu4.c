@@ -4,7 +4,7 @@
 #include <time.h>
 #include "funcionalidades.h"
 
-void buscar_mascotas_especie_edad(struct Mascota* mascotas, char* especie, int edad_min, int edad_max) {
+void buscarMascotasEspecie(struct Mascota* mascotas, char* especie, int edad_min, int edad_max) {
 	char opcion = 0;
 
 	if(mascotas != NULL && !strcmp(mascotas->especie, especie) &&
@@ -24,6 +24,6 @@ void buscar_mascotas_especie_edad(struct Mascota* mascotas, char* especie, int e
 		case 'Q':
 			break;
 		default:
-			buscar_mascotas_especie_edad(mascotas->siguiente, especie, edad_min, edad_max);
+			buscarMascotasEspecie(mascotas->siguiente, especie, edad_min, edad_max);
 	}
 }
