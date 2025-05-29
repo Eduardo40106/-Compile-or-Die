@@ -4,6 +4,19 @@
 #include <time.h>
 #include "funcionalidades.h"
 
+void encolar(struct Cola* lacola, struct Adoptante* nuevo) {
+    struct Nodo* AptnodoNuevo = (struct Nodo*)malloc(sizeof(struct Nodo));
+    AptnodoNuevo->persona = nuevo;
+    AptnodoNuevo->Aptsiguiente = NULL;
+    
+    if (lacola->Aptfrente == NULL) {
+        lacola->Aptfrente = AptnodoNuevo;
+        lacola->Aptatras = AptnodoNuevo;
+    } else {
+        lacola->Aptatras->Aptsiguiente = AptnodoNuevo;
+        lacola->Aptatras = AptnodoNuevo;
+    }
+}
 // Genera el ID basado en la fecha y letras del nombre
 void generarID(struct Adoptante* a, int consecutivo) {
     time_t t = time(NULL); //time (NULL) obtiene la hora actual en formato de segundos y se guarda ese valor en t, una variable de tipo time_t
