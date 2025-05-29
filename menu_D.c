@@ -6,9 +6,9 @@
 
 void registrarMascota(struct ListaMascotas* mascotas) {
 
-	char archivo[50] = "admin.txt";
+	char archivo[50] = PREFIJO;
 
-	strcat(archivo, PREFIJO);
+	strcat(archivo, "admin.txt");
 	
 	FILE* adminFile = fopen(archivo, "r");
 
